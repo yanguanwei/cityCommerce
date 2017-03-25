@@ -14,6 +14,6 @@ public class DemoController {
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello() {
-        return "/location";
+        return "location";
     }
 }
