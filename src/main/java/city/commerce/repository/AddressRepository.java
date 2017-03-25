@@ -29,13 +29,7 @@ public class AddressRepository {
 
     private Address resolveAddress(DBObject object) {
         BasicDBList list = (BasicDBList) object.get("location");
-         return new Address(
-                (String) object.get("address"),
-                new Location(
-                        (double) list.get(0),
-                        (double) list.get(1)
-                )
-        );
+         return new Address();
     }
 
     public List<Address> near(Location location) {
@@ -81,8 +75,8 @@ public class AddressRepository {
         DBCollection collection = getAddressCollection();
 
         BasicDBObject document = new BasicDBObject()
-                .append("address", address.getAddress())
-                .append("location", getLocationObject(address.getLocation()));
+                .append("address", address.getStreet())
+                .append("location", null);
 
         collection.insert(document);
     }

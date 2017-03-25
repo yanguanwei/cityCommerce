@@ -31,22 +31,4 @@ public class CityCommerceApplication {
     public static void main(String[] args) {
         SpringApplication.run(CityCommerceApplication.class, args);
     }
-
-    public void run() throws Exception {
-        addressRepository.insert(new Address(
-                "杭州",
-                new Location(40, 50)
-        ));
-
-        addressRepository.insert(new Address(
-                "上海",
-                new Location(70, 60)
-        ));
-
-        Location current = new Location(30, 30);
-        for (Address address : addressRepository.near(current)) {
-            System.out.println(address);
-            System.out.println(LocationUtil.getDistance(current, address.getLocation()));
-        }
-    }
 }
