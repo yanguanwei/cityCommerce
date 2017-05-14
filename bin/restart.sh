@@ -7,4 +7,4 @@ if [ $pid ]; then
     kill -9 $pid
 fi
 java -version
-java -jar $project_home/$project_name/target/$project_name-1.0-SNAPSHOT.jar --spring.profiles.active=prod > /dev/null 2>&1 &
+java -jar $project_home/$project_name/target/$project_name.jar --spring.profiles.active=prod > /dev/null 2>&1 &
