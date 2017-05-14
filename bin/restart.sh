@@ -6,4 +6,5 @@ if [ $pid ]; then
     echo "${project_name}  is  running  and pid=$pid"
     kill -9 $pid
 fi
-nohup java -jar $project_home/$project_name/target/$project_name-1.0-SNAPSHOT.jar --spring.profiles.active=prod > /dev/null 2>&1 &
+java -version
+java -jar $project_home/$project_name/target/$project_name-1.0-SNAPSHOT.jar --spring.profiles.active=prod > /dev/null 2>&1 &
