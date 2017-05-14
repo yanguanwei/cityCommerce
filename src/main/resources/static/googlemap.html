@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="map">
+    map init...
+</div>
+
+<script>
+    function initMap() {
+        var mapDiv = document.getElementById('map');
+
+        var location = {lat: 0, lng: 0};
+        var searcKeyword = "美食";
+
+        var map = new google.maps.Map(mapDiv, {
+            center: location,
+            zoom: 8
+        });
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                console.log(position);
+
+                location.lat = position.coords.latitude;
+                location.lng = position.coords.longitude;
+
+                map = new google.maps.Map(mapDiv, {
+                    center: location,
+                    zoom: 16
+                });
+
+                var request = {
+                    location: location,
+                    radius: '500',
+                    types: ['store']
+                };
+
+                var service = new google.maps.places.PlacesService(map);
+                var infowindow = new google.maps.InfoWindow();
+
+                service.nearbySearch(request, function(results, status) {
+                    if (status == google.maps.places.PlacesServiceStatus.OK) {
+                        console.log(results);
+                        for (var i = 0; i < results.length; i++) {
+                            createMarker(results[i]);
+                        }
+                    }
+                });
+
+                function createMarker(place) {
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: place.geometry.location
+                    });
+                    google.maps.event.addListener(marker, 'click', function() {
+                        var content = "<img src='"+place.icon+"'><h5>"+place.name+"</h5>";
+                        console.log(place);
+                        infowindow.setContent(content);
+                        infowindow.open(map, this);
+                    });
+                }
+            });
+        } else {
+            mapDiv.innerHTML="Geolocation is not supported by this browser.";
+        }
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBIyTVYvWiGwSBifu_7ioJkzOjOIn7r5GM&callback=initMap"
+        async defer></script>
+</body>
+</html>

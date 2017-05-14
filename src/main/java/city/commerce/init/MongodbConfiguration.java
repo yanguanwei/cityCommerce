@@ -12,11 +12,13 @@ import java.io.IOException;
  */
 @Configuration
 public class MongodbConfiguration {
+    private static final String MONGODB_HOST = "127.0.0.1";
+    private static final int MONGODB_PORT = 27017;
 
     @Bean
     public MongoClient mongoClient() throws IOException {
-        String bindIp = "127.0.0.1";
-        int port = 27017;
-        return new MongoClient(bindIp, port);
+        return new MongoClient(MONGODB_HOST, MONGODB_PORT);
     }
+
+
 }
