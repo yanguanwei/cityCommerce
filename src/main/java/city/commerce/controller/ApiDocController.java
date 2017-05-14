@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class ApiDocController {
-    @RequestMapping(value = "/api-doc.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/api-doc.html", method = RequestMethod.GET)
     public String doc() {
-        return "redirect:swagger-ui.htm";
+        return "redirect:swagger-ui.html";
     }
 }
